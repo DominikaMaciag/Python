@@ -11,39 +11,54 @@ class Zespolona:
     def argz(self):
         return atan(self.i / self.r)
 
-        
+    # method that describes the absolute value of the object    
     def __abs__(self):
-        pass
+        abs = 'Zespolona(' + abs(self.r) + "+" + abs(self.i) + "j" + ')'
+        return abs
 
+    # method is used to represent a class’s objects as a string
     def __repr__(self):
-        pass
+        rep = 'Zespolona(' + str(self.r) + '+' + str(self.i) + "j" + ')'
+        return rep
 
+    # method is used to represents a class’s objects as a string 
     def __str__(self):
-        pass
+        string = 'Zespolona(' + str(self.r) + '+' + str(self.i) + "j" + ')'
+        return string
 
     def __add__(self, other):
-        pass
+        sum_r = self.r + other.r
+        sum_i = self.i + other.i
+        return Zespolona(sum_r,sum_i)
 
     def __sub__(self, other):
-        pass
+        sub_r = self.r - other.r
+        sub_i = self.i - other.i
+        return Zespolona(sub_r,sub_i)
 
     def __mul__(self, other):
-        pass
+        mul_r = self.r * other
+        mul_i = self.i * other
+        return Zespolona(mul_r,mul_i)
 
     def __radd__(self, other):
-        pass
+        rsum_r = other.r + self.r 
+        rsum_i = other.i + self.i
+        return Zespolona(rsum_r,rsum_i)
 
     def __rmul__(self, other):
-        pass
+        rmul_r = other * self.r
+        rmul_i = other * self.i 
+        return Zespolona(rmul_r,rmul_i)
 
     def __rsub__(self, other):
         pass
 
     def __eq__(self, other):
-        pass
+        return self.r == other.r and self.i == other.i
 
     def __ne__(self, other):
-        pass
+        return self.r != other.r and self.i != other.i
 
     def __pow__(self, other):
         pass
@@ -55,20 +70,20 @@ def main():
     b = Zespolona(1, -3)
     print(a)
     print(b)
-    b_copy = eval(repr(b))
-    print(type(b_copy), b_copy.r, b_copy.i)
+    # b_copy = eval(repr(b))
+    # print(type(b_copy), b_copy.r, b_copy.i)
     print(a + b)
     print(a - b)
-    print(a + 4)
-    print(7 - a)
+    # print(a + 4)
+    # print(7 - a)
     print(a * 4)
     print(a * (-4))
     print(a == Zespolona(2, 5))
     print(a ==  b)
     print(a != b)
     print(a != Zespolona(2, 5))
-    print(a ** 2)
-    print(b ** 4)
+    # print(a ** 2)
+    # print(b ** 4)
 
 
 if __name__ == "__main__":
@@ -83,7 +98,7 @@ if __name__ == "__main__":
 # (1+8j)
 # (6+5j)
 # (5-5j)
-# (8+20j)
+# (8+20j) #mnozenie
 # (-8-20j)
 # True
 # False

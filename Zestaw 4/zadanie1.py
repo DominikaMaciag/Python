@@ -1,3 +1,5 @@
+# Zadanie 1 - Dominika Maciąg 
+
 class Baza(object):
     def __new__(cls, *args):
         print("-> Baza __new__", *args)
@@ -32,16 +34,97 @@ class A(object):
     def id(self):
         print("-A-")
 
+"""
+    SCENARIUSZ 1
+    1) W przypadku:
+    class B(Baza):
+        pass
+    Klasa B odziedziczy wszystkie metody oraz własności po klasie Baza
 
+    2) Jeśli dodamy własne metody __new__, __init__, __str__ oraz id() 
+    to klasa B nie będzie już dziedziczyła po swoim rodzicu powyższych metod.
+    Dzieje się tak z powodu MRO (Method Resolution Order) - reguł wyszukiwania metod.
+    Kolejność klas w MRO w tym przypadku będzie następująca:
+    class B -> class Baza
+
+    3) Aby klasa B nadal dziedziczyła daną metodę od swojego rodzica musimy użyć funkcji super():
+    super().__init__(x)
+
+"""
 class B(Baza):
-    pass
+    def __new__(cls, *args):
+        print("-> B __new__", *args)
+        nowy_obiekt = object.__new__(cls)
+        print("<- B __new__")
+        return nowy_obiekt
+    
+    def __init__(self, x):
+        print("-> B __init__", x)
+        super().__init__(x)
+        print("-- B __init__")
+        self.x = x
+        print("<- B __init__")
 
+    def __str__(self):
+        return "{self.x}".format(self=self)
+
+    def id(self):
+        print("-B-")
+
+"""
+    SCENARIUSZ 2
+    Klasa C odziedziczy metodę __init__ od klasy B, 
+    oraz z racji tego, że klasa B dziedziczy po klasie Baza
+    Klasa C również odziedziczy metodę __init__ po klasie Baza
+    Kolejność klas w MRO w tym przypadku będzie następująca:
+    class C -> class B -> class Baza
+
+"""
 class C(B):
-    pass
+    def __new__(cls, *args):
+        print("-> C __new__", *args)
+        nowy_obiekt = object.__new__(cls)
+        print("<- C __new__")
+        return nowy_obiekt
+    
+    def __init__(self, x):
+        print("-> C __init__", x)
+        super().__init__(x)
+        print("-- C __init__")
+        self.x = x
+        print("<- C __init__")
 
+    def __str__(self):
+        return "{self.x}".format(self=self)
+
+    def id(self):
+        print("-C-")
+
+"""
+    SCENARIUSZ 3
+    W tym przypadku dziedziczymy od klasy A brakującą w klasie D metodę __new__
+    Od każdej z pozostałych klas dziedziczymy ich metodę __init__ (z powodu użycia funkcji super())
+    Kolejność klas w MRO w tym przypadku będzie następująca:
+    class D -> class A -> class C -> class B -> class Baza
+
+"""
 class D(A, C, B, Baza):
     # tu nie definiować __new__
-    pass
+    def __init__(self, x):
+        print("-> D __init__", x)
+        super().__init__(x)
+        print("-- D __init__")
+        self.x = x
+        print("<- D __init__")
+
+    def __str__(self):
+        return "{self.x}".format(self=self)
+
+    def id(self):
+        print("-D-")
+
+
+
 
 ### SCENARIUSZ 1: 
 # print(B.mro())
@@ -70,4 +153,5 @@ class D(A, C, B, Baza):
 ### SCENARIUSZ 4: 
 # tak jak 3, tylko zobaczyć, co się dzieje podczas rzutowania:
 # A(d),id() albo B(d),id() itp.
+
 
