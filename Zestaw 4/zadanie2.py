@@ -18,22 +18,44 @@ class Zespolona:
 
     # method is used to represent a class’s objects as a string
     def __repr__(self):
-        rep = 'Zespolona(' + str(self.r) + '+' + str(self.i) + "j" + ')'
+        if(self.i<0):
+            rep = 'Zespolona(' + str(self.r) + str(self.i) + "j" + ')'
+        else:
+            rep = 'Zespolona(' + str(self.r) + '+' + str(self.i) + "j" + ')'
         return rep
 
     # method is used to represents a class’s objects as a string 
     def __str__(self):
-        string = 'Zespolona(' + str(self.r) + '+' + str(self.i) + "j" + ')'
+        if(self.i<0):
+            string = '(' + str(self.r) + str(self.i) + "j" + ')'
+        else:
+            string = '(' + str(self.r) + '+' + str(self.i) + "j" + ')'
         return string
 
     def __add__(self, other):
-        sum_r = self.r + other.r
-        sum_i = self.i + other.i
+        if isinstance(other,int):
+            sum_r = (int)(self.r) + other
+            return Zespolona(sum_r, (int)(self.i))
+        elif isinstance(other, float):
+            sum_r = float(self.r) + other
+            return Zespolona(sum_r, (float)(self.i))
+        else:
+            sum_r = self.r + other.r 
+            sum_i = self.i + other.i
         return Zespolona(sum_r,sum_i)
 
     def __sub__(self, other):
-        sub_r = self.r - other.r
-        sub_i = self.i - other.i
+        if isinstance(self, int):
+            complex_num = complex(other.r,other.i) 
+            sub = self - (int)(complex_num)
+            return sub
+        elif isinstance(self, float):
+            complex_num = complex(other.r,other.i) 
+            sub = self - (float)(complex_num)
+            return sub
+        else:
+            sub_r = self.r - other.r
+            sub_i = self.i - other.i
         return Zespolona(sub_r,sub_i)
 
     def __mul__(self, other):
@@ -61,7 +83,8 @@ class Zespolona:
         return self.r != other.r and self.i != other.i
 
     def __pow__(self, other):
-        pass
+        y = complex(self.r,self.i)
+        return y**other
 
 
 def main():
@@ -74,16 +97,16 @@ def main():
     # print(type(b_copy), b_copy.r, b_copy.i)
     print(a + b)
     print(a - b)
-    # print(a + 4)
-    # print(7 - a)
+    print(a + 4)
+    print(7 - a)
     print(a * 4)
     print(a * (-4))
     print(a == Zespolona(2, 5))
     print(a ==  b)
     print(a != b)
     print(a != Zespolona(2, 5))
-    # print(a ** 2)
-    # print(b ** 4)
+    print(a ** 2)
+    print(b ** 4)
 
 
 if __name__ == "__main__":
