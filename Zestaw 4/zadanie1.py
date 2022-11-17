@@ -17,7 +17,7 @@ class Baza(object):
     def id(self):
         print("-Baza-")
 
-class A(object):
+class A(object): 
     def __new__(cls, *args):
         print("-> A __new__", *args)
         nowy_obiekt = object.__new__(cls)
@@ -124,34 +124,52 @@ class D(A, C, B, Baza):
         print("-D-")
 
 
-
-
 ### SCENARIUSZ 1: 
-# print(B.mro())
-# b = B(123)
-# print("------------")
-# b.id()
-# print("------------")
-# print(b)
+print(B.mro())
+b = B(123)
+print("------------")
+b.id()
+print("------------")
+print(b)
+print("---koniec scenariusza 1--\n")
 
 ### SCENARIUSZ 2: 
-# print(C.mro())
-# c = C(456)
-# print("------------")
-# c.id()
-# print("------------")
-# print(c)
+print(C.mro())
+c = C(456)
+print("------------")
+c.id()
+print("------------")
+print(c)
+print("---koniec scenariusza 2--\n")
 
 ### SCENARIUSZ 3: 
-# print(D.mro())
-# d = D(789)
-# print("------------")
-# d.id()
-# print("------------")
-# print(d)
+print(D.mro())
+d = D(789)
+print("------------")
+d.id()
+print("------------")
+print(d)
+print("---koniec scenariusza 3--\n")
 
 ### SCENARIUSZ 4: 
 # tak jak 3, tylko zobaczyć, co się dzieje podczas rzutowania:
 # A(d),id() albo B(d),id() itp.
+# a = A(d)
+# print("------------")
+# a.id()
+# print("------------")
+# print("---koniec scenariusza a.id()--\n")
 
+b = B(d)
+print("------------")
+b.id()
+print("------------")
+print(b)
+print("---koniec scenariusza b.id()--\n")
 
+c = C(d)
+print("------------")
+c.id()
+print("------------")
+print(c)
+print("---koniec scenariusza c.id()--\n")

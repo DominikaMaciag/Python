@@ -11,20 +11,15 @@ class Zespolona:
     def argz(self):
         return atan(self.i / self.r)
 
-    # method that describes the absolute value of the object    
     def __abs__(self):
         abs = 'Zespolona(' + abs(self.r) + "+" + abs(self.i) + "j" + ')'
         return abs
 
-    # method is used to represent a class’s objects as a string
+    # __repr__ is used to show a string representation of the object
     def __repr__(self):
-        if(self.i<0):
-            rep = 'Zespolona(' + str(self.r) + str(self.i) + "j" + ')'
-        else:
-            rep = 'Zespolona(' + str(self.r) + '+' + str(self.i) + "j" + ')'
-        return rep
+        return 'Zespolona (' + str(self.r) + ',' + str(self.i) + ')'
 
-    # method is used to represents a class’s objects as a string 
+    # __str__ is used in to show a string representation of object to be read easily by others
     def __str__(self):
         if(self.i<0):
             string = '(' + str(self.r) + str(self.i) + "j" + ')'
@@ -45,16 +40,14 @@ class Zespolona:
         return Zespolona(sum_r,sum_i)
 
     def __sub__(self, other):
-        if isinstance(self, int):
-            complex_num = complex(other.r,other.i) 
-            sub = self - (int)(complex_num)
-            return sub
-        elif isinstance(self, float):
-            complex_num = complex(other.r,other.i) 
-            sub = self - (float)(complex_num)
-            return sub
+        if isinstance(other,int):
+            sub_r = (int)(self.r) - other
+            return Zespolona(-sub_r, -(int)(self.i))
+        elif isinstance(other, float):
+            sub_r = float(self.r) - other
+            return Zespolona(-sub_r, -(float)(self.i))
         else:
-            sub_r = self.r - other.r
+            sub_r = self.r - other.r 
             sub_i = self.i - other.i
         return Zespolona(sub_r,sub_i)
 
@@ -64,17 +57,13 @@ class Zespolona:
         return Zespolona(mul_r,mul_i)
 
     def __radd__(self, other):
-        rsum_r = other.r + self.r 
-        rsum_i = other.i + self.i
-        return Zespolona(rsum_r,rsum_i)
+        return self.__add__(other)
 
     def __rmul__(self, other):
-        rmul_r = other * self.r
-        rmul_i = other * self.i 
-        return Zespolona(rmul_r,rmul_i)
+        return self.__add__(other)
 
     def __rsub__(self, other):
-        pass
+        return self.__sub__(other)
 
     def __eq__(self, other):
         return self.r == other.r and self.i == other.i
@@ -93,8 +82,8 @@ def main():
     b = Zespolona(1, -3)
     print(a)
     print(b)
-    # b_copy = eval(repr(b))
-    # print(type(b_copy), b_copy.r, b_copy.i)
+    b_copy = eval(repr(b))
+    print(type(b_copy), b_copy.r, b_copy.i)
     print(a + b)
     print(a - b)
     print(a + 4)
@@ -108,10 +97,8 @@ def main():
     print(a ** 2)
     print(b ** 4)
 
-
 if __name__ == "__main__":
     main()
-
 
 # Liczby zespolone
 # (2+5j)
@@ -121,7 +108,7 @@ if __name__ == "__main__":
 # (1+8j)
 # (6+5j)
 # (5-5j)
-# (8+20j) #mnozenie
+# (8+20j)
 # (-8-20j)
 # True
 # False
