@@ -1,3 +1,5 @@
+# Zadanie 2 - Dominika Maciąg
+
 from math import hypot, atan, sin, cos
 
 class Zespolona:

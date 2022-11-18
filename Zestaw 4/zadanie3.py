@@ -1,3 +1,5 @@
+# Zadanie 3 - Dominika Maciąg
+
 # podpunkt A) 
 # zdefiniować w ramach klasy A funkcję foo(self, x), metodę klasy class_foo, metodę statyczną static_foo, 
 # tak, żeby kod poniżej drukował treści jak w komentarzach

@@ -1,3 +1,6 @@
+# Zadanie 5 - Dominika Maciąg
+# W tym zadaniu przyjrzymy się zewnętrznemu modułowi multipledispatch 
+
 from multipledispatch import dispatch
 
 class Figura(object):
