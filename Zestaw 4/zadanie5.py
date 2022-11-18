@@ -9,11 +9,14 @@ class Figura(object):
 
 class Prostokat(Figura):
     # zdefiniuj __init__ i argumenty x, y
-    pass
+    def __init__(self,x,y):
+        self.x = x
+        self.y = y
 
 class Kwadrat(Prostokat):
     # __init__ i jeden argument x, wołanie __init__ bazowego
-    pass
+    def __init__(self,x):
+        self.x = x
 
 @dispatch(Figura)
 def pole(instance: Figura):
@@ -22,15 +25,25 @@ def pole(instance: Figura):
 
 @dispatch(Prostokat)
 # zdefiniuj pole, zwróć x*y z instancji
+def pole(instance: Prostokat):
+    return instance.x*instance.y
 
 @dispatch(Prostokat, int, int)
 # funkcja pole, najpierw przypisz argumenty do x, y instancji, potem policz pole powierzchni
+def pole(instance: Prostokat,x,y):
+    pole = x * y
+    return pole
 
 @dispatch(Kwadrat)
 # funkcja pole
+def pole(isinstance: Kwadrat):
+    return isinstance.x*isinstance.x
 
 @dispatch(Kwadrat, int)
 # funkcja pole z podanym argumentem boku
+def pole(isinstance: Figura, x):
+    pole = x * x 
+    return pole
 
 # testy
 
