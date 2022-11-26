@@ -1,5 +1,3 @@
-# ------------ PLIK TESTOWY ------------ #
-
 import pygame, sys
 pygame.init()
 
@@ -14,11 +12,11 @@ def main():
     # pygame.mixer.music.play(1) 
 
     size = width, height = 800, 600
-    x,y = width/2, height/2
     screen = pygame.display.set_mode(size)
 
     speed = [0, 0]
-    accel = [0.1, 0.1]
+    accel = [1, 1]
+    t=1
 
     image = pygame.image.load(r'moon.jpg')
     image = pygame.transform.scale(image, size)
@@ -37,7 +35,7 @@ def main():
     pygame.display.flip()
 
     while True:
-        clock.tick(120) # for now instead of 60 fps we need higher 
+        clock.tick(60)
         # pygame.time.delay(50)
 
         for event in pygame.event.get():
@@ -47,19 +45,25 @@ def main():
         if keys[pygame.K_ESCAPE]: sys.exit()
 
         if keys[pygame.K_UP]:
-            ballrect.y -= 2
+            ballrect.y -= speed[1] + (accel[1]*t)
+            t+=0.01
         elif keys[pygame.K_DOWN]:
-            ballrect.y += 2
+            ballrect.y += speed[1] + (accel[1]*t)
+            t+=0.01
         elif keys[pygame.K_LEFT]:
-            ballrect.x -= 2
+            ballrect.x -= speed[0] + (accel[0]*t)
+            t+=0.01
         elif keys[pygame.K_RIGHT]:
-            ballrect.x += 2
+            ballrect.x += speed[0] + (accel[0]*t)
+            t+=0.01
 
         ballrect = ballrect.move(speed)
         if ballrect.left < 0 or ballrect.right > width:
             speed[0] = -speed[0]
+            # speed[0] = -1
         if ballrect.top < 0 or ballrect.bottom > height:
             speed[1] = -speed[1]
+            # speed[1] = -1
 
         screen.blit(image,surf_center)
         screen.blit(ball,ballrect)
