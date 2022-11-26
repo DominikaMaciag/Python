@@ -4,7 +4,7 @@ pygame.init()
 def main():
     clock = pygame.time.Clock()
 
-    pygame.display.set_caption('Nasze okienko :)')
+    pygame.display.set_caption('Nasze okienko')
     icon = pygame.image.load('moon.jpg')
     pygame.display.set_icon(icon)
 
