@@ -8,14 +8,14 @@ def main():
     icon = pygame.image.load('moon.jpg')
     pygame.display.set_icon(icon)
 
-    # pygame.mixer.music.load(r'music.mp3')
-    # pygame.mixer.music.play(1) 
+    pygame.mixer.music.load(r'music.mp3')
+    pygame.mixer.music.play(1) 
 
     size = width, height = 800, 600
     screen = pygame.display.set_mode(size)
 
     speed = [0, 0]
-    accel = [1, 1]
+    accel = [0.05, 0.05]
     t=1
 
     image = pygame.image.load(r'moon.jpg')
@@ -31,7 +31,7 @@ def main():
     ball = pygame.transform.scale(ball, (ball.get_width()//2, ball.get_height()//2))
     
     screen.blit(ball, (width/2, height/2))
-    ballrect = ball.get_rect(center=(width/2, height/2)) # store the blit position in the rect
+    ballrect = ball.get_rect(center=(width/2, height/2)) 
     pygame.display.flip()
 
     while True:
@@ -45,25 +45,23 @@ def main():
         if keys[pygame.K_ESCAPE]: sys.exit()
 
         if keys[pygame.K_UP]:
-            ballrect.y -= speed[1] + (accel[1]*t)
-            t+=0.01
+            speed[1] -= accel[1]*t
+            t+=0.00001 # zwiększam czas gdy naciskam daną strzałkę by piłka przyspieszała
         elif keys[pygame.K_DOWN]:
-            ballrect.y += speed[1] + (accel[1]*t)
-            t+=0.01
+            speed[1] += accel[1]*t
+            t+=0.00001
         elif keys[pygame.K_LEFT]:
-            ballrect.x -= speed[0] + (accel[0]*t)
-            t+=0.01
+            speed[0] -= accel[0]*t
+            t+=0.00001
         elif keys[pygame.K_RIGHT]:
-            ballrect.x += speed[0] + (accel[0]*t)
-            t+=0.01
+            speed[0] += accel[0]*t
+            t+=0.00001
 
         ballrect = ballrect.move(speed)
         if ballrect.left < 0 or ballrect.right > width:
             speed[0] = -speed[0]
-            # speed[0] = -1
         if ballrect.top < 0 or ballrect.bottom > height:
             speed[1] = -speed[1]
-            # speed[1] = -1
 
         screen.blit(image,surf_center)
         screen.blit(ball,ballrect)
