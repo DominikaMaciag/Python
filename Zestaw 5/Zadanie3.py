@@ -142,31 +142,33 @@ while kontynuuj:
 
 # otwieranie pliku i wypisywanie wartosci
 score_s = ""
+print("---> size: ", os.path.getsize('best.txt'))
 
-# file0 = open('best.txt', 'w')
-# if os.path.getsize('best.txt') == 0:
-#     start = 0
-#     file0.write(str(start))
-# file0.close()
+if os.path.getsize('best.txt') == 0:
+    # print("if size 0 został wywołany!")
+    file0 = open('best.txt', 'w')
+    file0.write(str(score))
+    file0.close()
 
-file = open('best.txt', 'r') 
-while True:
-    char = file.read(1)   
-    score_s += char      
-    if not char:
-        break
-print("score z pliku to: " + score_s)
-file.close()
-
-file1 = open('best.txt','w')
-# sprawdzamy czy obecny score jest większy od highest score
-if ( score > int(score_s)):
-    best_score = score
-    file1.write(str(best_score))
-    # print("best score: ", score)
 else:
-    best_score = score_s
-file1.close()
+    file = open('best.txt', 'r') 
+    while True:
+        char = file.read(1)   
+        score_s += char      
+        if not char:
+            break
+    # print("score z pliku to: " + score_s)
+    file.close()
+
+    file1 = open('best.txt','w')
+    # sprawdzamy czy obecny score jest większy od highest score
+    if ( score > int(score_s)):
+        best_score = score
+        file1.write(str(best_score))
+    else:
+        best_score = score_s
+        file1.write(str(best_score))
+    file1.close()
 
 
 while kontynuuj:

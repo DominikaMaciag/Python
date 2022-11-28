@@ -25,12 +25,12 @@ def main():
     size = width, height = 800, 600
     screen = pygame.display.set_mode(size)
 
-    x_0 = 0.005 # x początkowe
-    y_0 = 0.005 # y początkowe
+    x_0 = 0.5 # x początkowe
+    y_0 = 0.5 # y początkowe
     speed = [x_0,y_0] # ustalamy początkową prędkość
-    accel = [0.025, 0.025]
+    accel = [0.25, 0.25]
     g = [0, 9.81] # przyspieszenie ziemskie
-    t = 1
+    t = 0.5
 
     image = pygame.image.load(r'moon.jpg')
     image = pygame.transform.scale(image, size)
@@ -59,17 +59,14 @@ def main():
 
         if keys[pygame.K_UP]:
             speed[1] -= accel[1]*t
-            t+=0.00001 
         elif keys[pygame.K_DOWN]:
             speed[1] += accel[1]*t
-            t+=0.00001
         elif keys[pygame.K_LEFT]:
             speed[0] -= accel[0]
         elif keys[pygame.K_RIGHT]:
-            speed[0] += accel[0]
+            speed[0] += accel[0]*t
         if (speed == [x_0, y_0]): # jeśli piłka nieruchoma na początku to będzie spadek swobodny
             speed[1] = g[1]*t
-            t += 0.0001
 
         ballrect = ballrect.move(speed)
         if ballrect.left < 0 or ballrect.right > width:

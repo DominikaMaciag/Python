@@ -15,8 +15,8 @@ def main():
     screen = pygame.display.set_mode(size)
 
     speed = [0, 0]
-    accel = [0.05, 0.05]
-    t=1
+    accel = [0.25, 0.25]
+    t=0.5
 
     image = pygame.image.load(r'moon.jpg')
     image = pygame.transform.scale(image, size)
@@ -46,16 +46,12 @@ def main():
 
         if keys[pygame.K_UP]:
             speed[1] -= accel[1]*t
-            t+=0.00001 # zwiększam czas gdy naciskam daną strzałkę by piłka przyspieszała
         elif keys[pygame.K_DOWN]:
             speed[1] += accel[1]*t
-            t+=0.00001
         elif keys[pygame.K_LEFT]:
             speed[0] -= accel[0]*t
-            t+=0.00001
         elif keys[pygame.K_RIGHT]:
             speed[0] += accel[0]*t
-            t+=0.00001
 
         ballrect = ballrect.move(speed)
         if ballrect.left < 0 or ballrect.right > width:
