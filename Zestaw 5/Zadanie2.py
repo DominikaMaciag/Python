@@ -1,13 +1,5 @@
-# Na bazie powyższego kodu zrobimy symulację ruchu w polu grawitacyjnym. 
-# Proszę zatem ustalić jakieś wartości prędkości początkowej piłki, przyspieszenie ma składową pionową (0, 9.81) (składowe x, y). 
-# I teraz, jeśli piłka jest nieruchoma na początku – to będzie to spadek swobodny (z przyspieszeniem g = 9.81 m/s2), 
-# jeśli "rzucona w górę" (vy > 0), to rzut pionowy, jeśli "rzucona w bok" (vx > 0) to rzut poziomy i ogólnie – rzut ukośny.
+# Zadanie 2 - symulacja ruchu w polu grawitacyjnym. 
 
-# Piłka powinna poruszać się realistycznie 
-# (w sensie: należy wyliczać jej prędkości według ruchu przyspieszonego w pionie i jednostajnego w poziomie). 
-# Oczywiście, podobnie jak w zadaniu 1, wartość przyspieszenia (numerycznie) może być dowolnie dobrana tak, 
-# żeby ruch odbywał się płynnie, nie za wolno i nie za szybko. 
-# Proszę odbijać piłkę doskonale sprężyście (bez strat energii! – czyli w sumie w nieskończoność).
 import math
 import pygame, sys
 pygame.init()
@@ -25,12 +17,11 @@ def main():
     size = width, height = 800, 600
     screen = pygame.display.set_mode(size)
 
-    x_0 = 0.5 # x początkowe
-    y_0 = 0.5 # y początkowe
+    x_0 = 0.25 # x początkowe
+    y_0 = 0.25 # y początkowe
     speed = [x_0,y_0] # ustalamy początkową prędkość
     accel = [0.25, 0.25]
     g = [0, 9.81] # przyspieszenie ziemskie
-    t = 0.5
 
     image = pygame.image.load(r'moon.jpg')
     image = pygame.transform.scale(image, size)
@@ -47,32 +38,39 @@ def main():
     screen.blit(ball, (width/2, height/2))
     ballrect = ball.get_rect(center=(width/2, height/2)) 
     pygame.display.flip()
+    energia_calkowita = ((accel[1])*(height-ballrect.bottom))+ (1.39*speed[1]*speed[1]/2)
 
     while True:
-        clock.tick(60)
-
+        t = clock.tick(120) *0.001
+        # pygame.time.delay(50)
+        
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
    
         keys = pygame.key.get_pressed()
         if keys[pygame.K_ESCAPE]: sys.exit()
 
+        # poruszanie dla testów
         if keys[pygame.K_UP]:
-            speed[1] -= accel[1]*t
+            speed[1] -= accel[1]*000000.1
         elif keys[pygame.K_DOWN]:
-            speed[1] += accel[1]*t
+            speed[1] += accel[1]*000000.1
         elif keys[pygame.K_LEFT]:
-            speed[0] -= accel[0]
+            speed[0] -= accel[0]*000000.1
         elif keys[pygame.K_RIGHT]:
-            speed[0] += accel[0]*t
-        if (speed == [x_0, y_0]): # jeśli piłka nieruchoma na początku to będzie spadek swobodny
-            speed[1] = g[1]*t
+            speed[0] += accel[0]*000000.1
+        
+        while ((g[1])*(height-ballrect.bottom)*38.44)+ (1.39*speed[1]*speed[1]/2) < energia_calkowita:
+            ballrect = ballrect.move([0,-5])
 
         ballrect = ballrect.move(speed)
         if ballrect.left < 0 or ballrect.right > width:
             speed[0] = -speed[0]
         if ballrect.top < 0 or ballrect.bottom > height:
             speed[1] = -speed[1]
+            
+        speed[1] += g[1]*t
+
                  
         screen.blit(image,surf_center)
         screen.blit(ball,ballrect)
