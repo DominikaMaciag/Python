@@ -1,22 +1,17 @@
 # Enter your code here. Read input from STDIN. Print output to STDOUT
 from itertools import product
+final = { 0 }
+tmp = set()
 
 K, M = map(int, input().split())
 
-list = []
-
 for i in range(K):
-    list.append(input())    
-# print(list)
-
-for i in range(K):
-    print("---",i)
-    print(list[i])
-    print(max(list[i]))
+    s = input().split()
     
-#column out of 2d array
-# def column(matrix, i):
-#     return [row[i] for row in matrix]
-
-# for i in range(K):
-#     print(column(input(),i))
+    for j in final:
+        for k in range(1,len(s)):
+            tmp.add((pow(int(s[k]),2)+j)%M)
+    final = tmp
+    tmp = set()
+    
+print(max(final))
